@@ -2,20 +2,23 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import static java.lang.System.exit;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
         Enigma enigma = new Enigma();
+
+        print4();
 
         System.out.print("  - Please Enter the PlugBoard Like (AF,BM,GH,JC,XE,OP,NR,ZL) : ");
 //        String plugBoardStr =input.nextLine();
         String plugBoardStr ="AF,BM,GH,JC,XE,OP,NR,ZL";
-        System.out.println();
-
         enigma.PlugBoard(plugBoardStr);
         System.out.println();
+
+        print4();
+
 
         System.out.print("  - Please Enter the Rotator1 Like (CMFQSBHIOAKRTENZLDYWUGPJXV) : ");
         String rotate1Str ="CMFQSBHIOAKRTENZLDYWUGPJXV";
@@ -25,12 +28,17 @@ public class Main {
         System.out.println();
 
 
+        print4();
+
         System.out.print("  - Please Enter the Rotator2 Like (QNGHSZAFEBJRLUCTXYIMPDWKOV) : ");
         String rotate2Str ="QNGHSZAFEBJRLUCTXYIMPDWKOV";
 //        String rotate2Str =input.nextLine();
         System.out.println();
         enigma.Rotator2(rotate2Str);
         System.out.println();
+
+        print4();
+
 
         System.out.print("  - Please Enter the Rotator3 Like (LUWJHIKDYCAXMNQBZTRFGESVPO) : ");
         String rotate3Str ="LUWJHIKDYCAXMNQBZTRFGESVPO";
@@ -41,12 +49,20 @@ public class Main {
 
 
 
+        print4();
+
         System.out.print(" *****   Please Enter the Encrypted String Code : ");
         String inputStr = input.nextLine();
         char strChars[] = inputStr.toCharArray();
         for (char c:strChars) {
             System.out.print(enigma.EnigmaFindEncrypt(c));
         }
+    }
+
+    public static void print4(){
+        System.out.println();System.out.println();
+        System.out.println();
+        System.out.println();
     }
 }
 
@@ -84,7 +100,7 @@ class Enigma{
 
     public void PlugBoard(String plugBoardStr){
         String arrayplugBoardStr[] =  plugBoardStr.split(",");
-        System.out.println(Arrays.toString(arrayplugBoardStr));
+//        System.out.println(Arrays.toString(arrayplugBoardStr));
         for (int i = 0; i < arrayplugBoardStr.length; i++) {
             PlugBoard.put(arrayplugBoardStr[i].charAt(0),arrayplugBoardStr[i].charAt(1));
         }
@@ -139,8 +155,8 @@ class Enigma{
 //     Constructors performance
     public char getPlugBoardValueByKey(char c){
         if (PlugBoard.get(c)==null) {
-            System.out.println("char is null : " + c);
-            return ' ';
+            System.out.println("char is null in PlugBoard : " + c);
+            exit(0);
         }
         return PlugBoard.get(c);
     }
@@ -233,3 +249,64 @@ class Enigma{
     }
 
 }
+
+
+
+
+
+//public class MyHashMap<K, V> {
+//    private int CAPACITY = 10;
+//    private MyMapBucket[] bucket;
+//    private int size = 0;
+//
+//    public MyHashMap() {
+//        this.bucket = new MyMapBucket[CAPACITY];
+//    }
+//    private int getHash(K key) {
+//        return (key.hashCode() & 0xfffffff) % CAPACITY;
+//    }
+//
+//    private MyKeyValueEntry getEntry(K key) {
+//        int hash = getHash(key);
+//        for (int i = 0; i < bucket[hash].getEntries().size(); i++) {
+//            MyKeyValueEntry myKeyValueEntry = bucket[hash].getEntries().get(i);
+//            if(myKeyValueEntry.getKey().equals(key)) {
+//                return myKeyValueEntry;
+//            }
+//        }
+//        return null;
+//    }
+//    public void put(K key, V value) {
+//        if(containsKey(key)) {
+//            MyKeyValueEntry entry = getEntry(key);
+//            entry.setValue(value);
+//        } else {
+//            int hash = getHash(key);
+//            if(bucket[hash] == null) {
+//                bucket[hash] = new MyMapBucket();
+//            }
+//            bucket[hash].addEntry(new MyKeyValueEntry<>(key, value));
+//            size++;
+//        }
+//    }
+//
+//    public V get(K key) {
+//        return containsKey(key) ? (V) getEntry(key).getValue() : null;
+//    }
+//
+//    public boolean containsKey(K key) {
+//        int hash = getHash(key);
+//        return !(Objects.isNull(bucket[hash]) || Objects.isNull(getEntry(key)));
+//    }
+//
+//    public void delete(K key) {
+//        if(containsKey(key)) {
+//            int hash = getHash(key);
+//            bucket[hash].removeEntry(getEntry(key));
+//            size--;
+//        }
+//    }
+//    public int size() {
+//        return size;
+//    }
+//}
